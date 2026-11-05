@@ -10,7 +10,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
     <!-- QRCode Library -->
     <script src="/vendor/qrcode.min.js"></script>
@@ -73,7 +73,7 @@
         }
 
         .dashboard {
-            max-width: 1200px;
+            max-width: 1240px;
             margin: 0 auto;
         }
 
@@ -104,8 +104,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
         }
 
         .brand-icon svg {
@@ -114,17 +113,15 @@
         }
 
         .brand-text h1 {
-            font-size: clamp(20px, 3vw, 26px);
+            font-size: 20px;
             font-weight: 800;
             letter-spacing: -0.02em;
             color: var(--text-main);
-            line-height: 1.2;
         }
 
         .brand-text p {
             font-size: 13px;
             color: var(--text-muted);
-            margin-top: 2px;
             font-weight: 500;
         }
 
@@ -132,21 +129,18 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            flex-wrap: wrap;
         }
 
-        /* --- Status Badge --- */
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 9px;
-            border: 1px solid var(--border);
+            gap: 8px;
+            padding: 6px 14px;
             border-radius: 999px;
-            padding: 8px 16px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             background: var(--surface);
-            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
             letter-spacing: 0.02em;
             transition: all 0.2s ease;
         }
@@ -218,7 +212,7 @@
             flex-shrink: 0;
         }
 
-        .stat-icon.blue {
+        .stat-icon.indigo {
             background: var(--primary-light);
             color: var(--primary);
         }
@@ -228,33 +222,213 @@
             color: var(--success);
         }
 
+        .stat-icon.red {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+
         .stat-icon.amber {
             background: var(--warning-light);
             color: var(--warning);
         }
 
         .stat-info .stat-label {
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
         }
 
         .stat-info .stat-value {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
             color: var(--text-main);
             margin-top: 2px;
             display: flex;
             align-items: baseline;
             gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .stat-info .stat-sub {
             font-size: 12px;
             font-weight: 500;
             color: var(--text-dim);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 170px;
+        }
+
+        /* --- COURSES SECTION (FULL WIDTH) --- */
+        .courses-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 24px 26px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+
+        .courses-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .courses-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.01em;
+        }
+
+        .courses-title svg {
+            width: 22px;
+            height: 22px;
+            color: var(--primary);
+        }
+
+        .courses-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            transition: background 0.15s;
+        }
+
+        .btn-text:hover {
+            text-decoration: underline;
+            background: var(--primary-light);
+        }
+
+        /* Courses Table */
+        .courses-table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: #ffffff;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .courses-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        .courses-table th {
+            padding: 12px 18px;
+            background: #f8fafc;
+            color: var(--text-muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .courses-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        .courses-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .courses-table tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Clickable Course Name Link */
+        .course-name-link {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+
+        .course-name-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Clickable File Name Link Button */
+        .file-link-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .file-link-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-border);
+            text-decoration: underline;
+        }
+
+        .class-badge-active {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #065f46;
+            background: var(--success-light);
+            border: 1px solid var(--success-border);
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        .action-btn-sm {
+            padding: 7px 14px;
+            min-height: auto;
+            font-size: 13px;
+            border-radius: 8px;
         }
 
         /* --- Main Content Grid --- */
@@ -306,45 +480,39 @@
             line-height: 1.5;
         }
 
-        /* --- QR Container --- */
+        /* --- QR Wrapper & Canvas --- */
         .qr-wrapper {
-            position: relative;
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .qr-container {
+            width: 280px;
+            height: 280px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 12px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-height: 290px;
-            width: 100%;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
         }
 
-        #qr img,
-        #qr canvas {
+        .qr-container canvas,
+        .qr-container img {
             display: block;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-sm);
         }
 
         .placeholder {
-            max-width: 280px;
-            text-align: center;
             color: var(--text-muted);
-            line-height: 1.6;
-            font-size: 14px;
-            padding: 30px 16px;
+            font-size: 13px;
+            text-align: center;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -362,7 +530,7 @@
             justify-content: center;
         }
 
-        /* --- Progress Bar for Token Expiry --- */
+        /* Progress Bar (15s Lifespan) */
         .token-timer-bar-wrap {
             width: 100%;
             height: 6px;
@@ -380,7 +548,7 @@
             transition: width 0.2s linear, background 0.3s ease;
         }
 
-        /* --- Token Details Box --- */
+        /* Token Details Box */
         .token-box {
             background: var(--surface-alt);
             border: 1px solid var(--border);
@@ -466,7 +634,7 @@
             border-radius: 6px;
         }
 
-        /* --- Status Message Box --- */
+        /* Message Box */
         .message {
             margin: 12px 0 16px;
             padding: 12px 14px;
@@ -501,7 +669,7 @@
             border-color: var(--warning-border);
         }
 
-        /* --- Student URL Box --- */
+        /* Student URL Box */
         .link-box {
             background: #ffffff;
             border: 1px dashed var(--border);
@@ -555,7 +723,7 @@
             border-color: var(--border-hover);
         }
 
-        /* --- Buttons & Controls --- */
+        /* Buttons & Controls */
         .controls {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -775,10 +943,6 @@
             border-bottom: none;
         }
 
-        tbody tr {
-            transition: background-color 0.1s ease;
-        }
-
         tbody tr:hover {
             background-color: #f8fafc;
         }
@@ -848,7 +1012,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.25s ease;
@@ -862,14 +1025,14 @@
         .modal-card {
             background: #ffffff;
             border-radius: var(--radius-xl);
-            max-width: 520px;
-            width: 100%;
-            padding: 32px;
+            padding: 36px 32px;
+            max-width: 480px;
+            width: 90%;
             text-align: center;
-            box-shadow: var(--shadow-xl);
             position: relative;
+            box-shadow: var(--shadow-xl);
             transform: scale(0.95);
-            transition: transform 0.25s ease;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .modal-overlay.open .modal-card {
@@ -878,25 +1041,24 @@
 
         .modal-close-btn {
             position: absolute;
-            top: 16px;
-            right: 16px;
-            background: var(--surface-alt);
-            border: 0;
+            top: 18px;
+            right: 18px;
             width: 36px;
             height: 36px;
             border-radius: 50%;
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: var(--text-muted);
-            min-height: auto;
             padding: 0;
-            box-shadow: none;
+            min-height: auto;
         }
 
         .modal-close-btn:hover {
-            background: var(--border);
+            background: #ffffff;
             color: var(--text-main);
         }
 
@@ -912,7 +1074,68 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
-        /* --- Toast Notification --- */
+        /* --- ADD COURSE MODAL --- */
+        .add-course-modal-card {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            max-width: 520px;
+            width: 92%;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.95);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.open .add-course-modal-card {
+            transform: scale(1);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.15s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        .file-drop-box {
+            border: 2px dashed var(--border-hover);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            text-align: center;
+            background: var(--surface-alt);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .file-drop-box:hover, .file-drop-box.dragover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* Toast */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -927,7 +1150,7 @@
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 2000;
+            z-index: 2500;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -938,38 +1161,346 @@
             opacity: 1;
         }
 
-        /* --- Responsive Queries --- */
-        @media (max-width: 900px) {
+        /* -------------------------------------------------- */
+        /* SECTION 11: INTERACTIVE SPREADSHEET EDITOR MODAL   */
+        /* -------------------------------------------------- */
+        .sheet-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(8px);
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            padding: 20px;
+        }
+
+        .sheet-modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sheet-modal-container {
+            background: #ffffff;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            width: 96vw;
+            max-width: 1460px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transform: scale(0.97);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .sheet-modal-overlay.open .sheet-modal-container {
+            transform: scale(1);
+        }
+
+        /* Toolbar */
+        .sheet-toolbar {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .sheet-title-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .sheet-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+            flex-shrink: 0;
+        }
+
+        .sheet-heading {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sheet-heading code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .sheet-subheading {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sheet-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .sheet-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .sheet-status-pill.unsaved {
+            background: var(--warning-light);
+            border-color: var(--warning-border);
+            color: #92400e;
+        }
+
+        .sheet-search-wrap {
+            position: relative;
+            width: 220px;
+        }
+
+        .sheet-search-wrap input {
+            width: 100%;
+            padding: 8px 12px 8px 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            font-size: 13px;
+            outline: none;
+            background: var(--surface-alt);
+        }
+
+        .sheet-search-wrap input:focus {
+            background: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .sheet-search-wrap svg {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            pointer-events: none;
+        }
+
+        .sheet-btn {
+            min-height: 40px;
+            padding: 8px 16px;
+            font-size: 13px;
+            border-radius: var(--radius-md);
+        }
+
+        /* Spreadsheet Grid */
+        .sheet-grid-wrapper {
+            flex: 1;
+            overflow: auto;
+            position: relative;
+            background: #ffffff;
+        }
+
+        .excel-grid-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: max-content;
+            min-width: 100%;
+            font-size: 13px;
+        }
+
+        /* Sticky Table Headers */
+        .excel-grid-table th {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: #f1f5f9;
+            color: var(--text-main);
+            font-weight: 700;
+            padding: 10px 14px;
+            border-bottom: 2px solid var(--border-hover);
+            border-right: 1px solid var(--border);
+            text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            white-space: nowrap;
+        }
+
+        .excel-grid-table th .col-date {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .excel-grid-table th .col-stat {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* Sticky Left Column (Roll No) */
+        .excel-grid-table th:first-child,
+        .excel-grid-table td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 15;
+            background: #f8fafc;
+            border-right: 2px solid var(--border-hover);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            text-align: center;
+            min-width: 130px;
+        }
+
+        .excel-grid-table th:first-child {
+            z-index: 30; /* Corner cell highest z-index */
+            background: #e2e8f0;
+        }
+
+        .excel-grid-table td {
+            padding: 6px 12px;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            transition: background 0.1s;
+        }
+
+        .excel-grid-table tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        .excel-grid-table tr:hover td:first-child {
+            background-color: #f1f5f9;
+        }
+
+        /* Interactive Attendance Cell Badges */
+        .cell-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 28px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+            user-select: none;
+            padding: 0;
+            min-height: auto;
+            box-shadow: none;
+        }
+
+        .cell-toggle-btn.val-1 {
+            background: var(--success-light);
+            color: #065f46;
+            border-color: var(--success-border);
+        }
+
+        .cell-toggle-btn.val-1:hover {
+            background: #d1fae5;
+            transform: scale(1.08);
+        }
+
+        .cell-toggle-btn.val-0 {
+            background: var(--surface-alt);
+            color: var(--text-dim);
+            border-color: var(--border);
+        }
+
+        .cell-toggle-btn.val-0:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+            transform: scale(1.08);
+        }
+
+        /* Edited Cell Outline Indicator */
+        .cell-toggle-btn.edited {
+            position: relative;
+            outline: 2px solid var(--warning);
+            outline-offset: 1px;
+        }
+
+        .cell-toggle-btn.edited::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--warning);
+        }
+
+        /* Sheet Footer */
+        .sheet-footer {
+            padding: 12px 24px;
+            background: #f8fafc;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .sheet-footer kbd {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 11px;
+            font-family: inherit;
+            color: var(--text-main);
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 960px) {
             .grid {
                 grid-template-columns: 1fr;
             }
-
-            .card {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 14px 12px 36px;
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .header-actions {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .controls {
-                grid-template-columns: 1fr;
-            }
-
-            .controls .stop-button {
-                grid-column: auto;
+            .sheet-modal-container {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
             }
         }
     </style>
@@ -992,7 +1523,7 @@
             </div>
             <div class="brand-text">
                 <h1>Dynamic QR Attendance</h1>
-                <p>Professor Control Console • Anti-Proxy Verification</p>
+                <p>Excel-Synchronized Attendance Management • IIIT Dharwad</p>
             </div>
         </div>
 
@@ -1006,13 +1537,27 @@
 
             <div class="status-badge" id="sessionBadgeContainer">
                 <span id="statusDot" class="dot"></span>
-                <span id="sessionBadge">CONNECTING</span>
+                <span id="sessionBadge">READY</span>
             </div>
         </div>
     </header>
 
     <!-- KEY STATS ROW -->
     <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon indigo">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+            </div>
+            <div class="stat-info" style="overflow:hidden;">
+                <div class="stat-label">Active Course</div>
+                <div class="stat-value" style="font-size: 16px; font-family:'Inter', sans-serif;" id="topClassName">None</div>
+                <div class="stat-sub" id="topClassFile">Select a course below to start</div>
+            </div>
+        </div>
+
         <div class="stat-card">
             <div class="stat-icon green">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1024,7 +1569,21 @@
             </div>
             <div class="stat-info">
                 <div class="stat-label">Students Present</div>
-                <div class="stat-value"><span id="topAttendanceCount">0</span> <span class="stat-sub">verified</span></div>
+                <div class="stat-value"><span id="topAttendanceCount">0</span> <span class="stat-sub" id="topEnrolledSub">/ 215</span></div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon red">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <div class="stat-label">Students Absent</div>
+                <div class="stat-value"><span id="topAbsentCount">215</span> <span class="stat-sub">unmarked</span></div>
             </div>
         </div>
 
@@ -1036,23 +1595,68 @@
                 </svg>
             </div>
             <div class="stat-info">
-                <div class="stat-label">Token Expiration</div>
+                <div class="stat-label">QR Token Expiration (15s)</div>
                 <div class="stat-value" id="topTimerDisplay">--</div>
             </div>
         </div>
+    </div>
 
-        <div class="stat-card">
-            <div class="stat-icon blue">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
+    <!-- COURSES TABLE SECTION (FULL WIDTH) -->
+    <section class="courses-card">
+        <div class="courses-header">
+            <div>
+                <div class="courses-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    Courses
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">
+                    Click on any course or file name to view and manually edit attendance records.
+                </p>
             </div>
-            <div class="stat-info">
-                <div class="stat-label">Anti-Proxy Protection</div>
-                <div class="stat-value" style="font-size: 16px; margin-top: 6px;">Single-Device &amp; IP</div>
+
+            <div class="courses-header-actions">
+                <button id="downloadTemplateBtn" type="button" class="btn-text" title="Download blank Excel template with Reg. No. and Name columns">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Template
+                </button>
+
+                <button id="openAddCourseModalBtn" type="button" class="primary action-btn-sm" style="display:inline-flex; align-items:center; gap:6px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add Course
+                </button>
             </div>
         </div>
-    </div>
+
+        <div class="courses-table-wrap">
+            <table class="courses-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Course Name</th>
+                        <th style="width: 25%;">File Name</th>
+                        <th style="width: 20%;">Select Class</th>
+                        <th style="width: 30%; text-align: right;">Download (or upload if for the first time)</th>
+                    </tr>
+                </thead>
+                <tbody id="classesTableBody">
+                    <tr>
+                        <td colspan="4" style="text-align:center; color:var(--text-muted); padding:32px;">
+                            No courses added yet. Click <strong>"+ Add Course"</strong> above to upload your first course Excel sheet.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
     <!-- MAIN TWO COLUMN GRID -->
     <div class="grid">
@@ -1071,7 +1675,7 @@
             </div>
 
             <p class="card-subtitle">
-                Students scan this QR code using their camera. The code rotates automatically every 30 seconds to prevent unauthorized sharing.
+                Students scan this QR code using their camera. The code rotates automatically every 15 seconds to prevent unauthorized sharing.
             </p>
 
             <!-- QR Display Box -->
@@ -1085,12 +1689,12 @@
                                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
                             </svg>
                         </div>
-                        Connecting to the attendance server...
+                        <span id="qrPlaceholderText">Please select a course from the Courses table above, then click 'Start Attendance Session'.</span>
                     </div>
                 </div>
 
-                <!-- Animated Lifespan Progress Bar -->
-                <div class="token-timer-bar-wrap" title="Current QR Token Lifetime">
+                <!-- Animated Lifespan Progress Bar (15s) -->
+                <div class="token-timer-bar-wrap" title="Current QR Token Lifetime (15s)">
                     <div id="tokenProgressBar" class="token-timer-bar" style="width: 100%;"></div>
                 </div>
             </div>
@@ -1113,7 +1717,7 @@
                         Copy
                     </button>
                 </div>
-                <code id="token">Waiting for token...</code>
+                <code id="token">Waiting to start session...</code>
 
                 <div class="countdown-row">
                     <span>
@@ -1129,7 +1733,7 @@
 
             <!-- QR Status Feedback Message -->
             <p id="qrStatus" class="message">
-                Connecting to server...
+                Select a course in the Courses table and click 'Start Attendance Session'.
             </p>
 
             <!-- Student Direct URL Box -->
@@ -1155,7 +1759,7 @@
                 </div>
             </div>
 
-            <!-- ACTION BUTTON CONTROLS (KEEPING IDENTICAL IDS & BEHAVIOR) -->
+            <!-- ACTION BUTTON CONTROLS -->
             <div class="controls">
                 <button
                     id="stopSessionButton"
@@ -1165,12 +1769,12 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="4" y="4" width="16" height="16" rx="2"></rect>
                     </svg>
-                    Stop QR &amp; Download Excel
+                    End Attendance Session
                 </button>
 
                 <button
                     id="downloadButton"
-                    class="primary"
+                    class="secondary"
                     type="button">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -1185,10 +1789,9 @@
                     class="success-button"
                     type="button">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="23 4 23 10 17 10"></polyline>
-                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                    Start New Session
+                    Start Attendance Session
                 </button>
             </div>
 
@@ -1199,7 +1802,7 @@
                     <line x1="12" y1="8" x2="12.01" y2="8"></line>
                 </svg>
                 <span>
-                    Stopping closes active attendance submissions and downloads the current session report. Starting a new session creates a fresh QR session while keeping database history safe.
+                    Each attendance session adds a new column formatted as <code>DD-MM-YYYY</code> to your course's Excel sheet. All values are initialized to 0 (absent) and updated to 1 (present) upon scanning.
                 </span>
             </div>
         </section>
@@ -1265,7 +1868,7 @@
                                         <polyline points="12 6 12 12 16 14"></polyline>
                                     </svg>
                                 </div>
-                                Loading attendance records...
+                                Waiting for attendance records...
                             </td>
                         </tr>
                     </tbody>
@@ -1283,6 +1886,140 @@
             </div>
         </section>
 
+    </div>
+</div>
+
+<!-- ADD COURSE MODAL -->
+<div id="addCourseModal" class="modal-overlay">
+    <div class="add-course-modal-card">
+        <button id="closeAddCourseModalBtn" class="modal-close-btn" type="button" title="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <h2 style="font-size:20px; font-weight:800; color:var(--text-main); margin-bottom:4px;">Add New Course</h2>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">
+            Enter the course name and upload the initial Excel roster containing roll numbers <code>25BCS001</code> to <code>25BCS215</code>.
+        </p>
+
+        <form id="addCourseForm">
+            <div class="form-group">
+                <label class="form-label" for="newCourseName">Course / Class Name</label>
+                <input class="form-input" type="text" id="newCourseName" placeholder="e.g. DSA, DBMS, Operating Systems" required autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Course Roster Excel File (.xlsx)</label>
+                <input type="file" id="courseFileInput" accept=".xlsx,.xls" style="display:none;" required>
+                <div class="file-drop-box" id="modalFileDropZone">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--primary); margin-bottom:6px;">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <div id="modalFileLabel" style="font-size:13.5px; font-weight:700; color:var(--text-main);">Click to choose Excel sheet (.xlsx)</div>
+                    <div style="font-size:12px; color:var(--text-muted); margin-top:3px;">Must contain 'Roll No.' column with 25BCS001 to 25BCS215</div>
+                </div>
+            </div>
+
+            <div id="modalUploadError" class="message error" style="display:none;"></div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:24px;">
+                <button type="button" id="cancelAddCourseBtn" class="secondary" style="min-height:42px;">Cancel</button>
+                <button type="submit" id="submitAddCourseBtn" class="primary" style="min-height:42px;">Create Course</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- -------------------------------------------------- -->
+<!-- SECTION 11: INTERACTIVE SPREADSHEET EDITOR MODAL   -->
+<!-- -------------------------------------------------- -->
+<div id="spreadsheetModal" class="sheet-modal-overlay">
+    <div class="sheet-modal-container">
+        <!-- Top Toolbar -->
+        <div class="sheet-toolbar">
+            <div class="sheet-title-group">
+                <div class="sheet-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="8" y1="13" x2="16" y2="13"></line>
+                        <line x1="8" y1="17" x2="16" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </div>
+                <div>
+                    <div class="sheet-heading">
+                        <span id="sheetCourseName">Class Name</span> • <code id="sheetFileName">filename.xlsx</code>
+                    </div>
+                    <div class="sheet-subheading">
+                        <span id="sheetStudentCount">215 Students</span> &bull; 
+                        <span id="sheetSessionCount">0 Sessions</span> &bull; 
+                        <span id="sheetLastSavedTime" style="color:var(--text-dim);">All changes synchronized</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sheet-actions">
+                <div class="sheet-status-pill" id="sheetStatusPill">
+                    <span class="dot active" id="sheetStatusDot"></span>
+                    <span id="sheetStatusText">All Changes Saved</span>
+                </div>
+
+                <div class="sheet-search-wrap">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="sheetFilterInput" placeholder="Filter roll number..." autocomplete="off">
+                </div>
+
+                <button id="saveSpreadsheetBtn" class="primary sheet-btn" type="button" disabled title="Save manual edits directly to persistent Excel file (Ctrl+S)">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Save Changes
+                </button>
+
+                <button id="downloadSpreadsheetBtn" class="secondary sheet-btn" type="button" title="Download this Excel file">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Excel
+                </button>
+
+                <button id="closeSpreadsheetBtn" class="secondary sheet-btn" type="button" title="Close spreadsheet viewer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Spreadsheet Grid Container -->
+        <div class="sheet-grid-wrapper" id="sheetGridWrapper">
+            <table class="excel-grid-table" id="excelGridTable">
+                <thead id="sheetTableHead"></thead>
+                <tbody id="sheetTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Bottom Sheet Footer -->
+        <div class="sheet-footer">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <kbd>Click</kbd> cell badge to toggle <code>0</code> (absent) &harr; <code>1</code> (present). 
+                <kbd>Ctrl + S</kbd> to save. All edits persist permanently in the actual Excel file.
+            </span>
+            <span id="sheetStatsSummary" style="font-weight:600; color:var(--text-main);">215 Students Enrolled</span>
+        </div>
     </div>
 </div>
 
@@ -1337,10 +2074,14 @@
 
     const attendanceCount = document.getElementById('attendanceCount');
     const topAttendanceCount = document.getElementById('topAttendanceCount');
+    const topAbsentCount = document.getElementById('topAbsentCount');
+    const topEnrolledSub = document.getElementById('topEnrolledSub');
+    const topClassName = document.getElementById('topClassName');
+    const topClassFile = document.getElementById('topClassFile');
+
     const attendanceRows = document.getElementById('attendanceRows');
     const attendanceStatus = document.getElementById('attendanceStatus');
 
-    // Extra UI Elements
     const tokenProgressBar = document.getElementById('tokenProgressBar');
     const topTimerDisplay = document.getElementById('topTimerDisplay');
     const copyTokenBtn = document.getElementById('copyTokenBtn');
@@ -1355,19 +2096,61 @@
     const modalQr = document.getElementById('modalQr');
     const modalCountdown = document.getElementById('modalCountdown');
 
+    // Courses Section Elements
+    const classesTableBody = document.getElementById('classesTableBody');
+    const downloadTemplateBtn = document.getElementById('downloadTemplateBtn');
+    const openAddCourseModalBtn = document.getElementById('openAddCourseModalBtn');
+    const addCourseModal = document.getElementById('addCourseModal');
+    const closeAddCourseModalBtn = document.getElementById('closeAddCourseModalBtn');
+    const cancelAddCourseBtn = document.getElementById('cancelAddCourseBtn');
+    const addCourseForm = document.getElementById('addCourseForm');
+    const newCourseName = document.getElementById('newCourseName');
+    const courseFileInput = document.getElementById('courseFileInput');
+    const modalFileDropZone = document.getElementById('modalFileDropZone');
+    const modalFileLabel = document.getElementById('modalFileLabel');
+    const modalUploadError = document.getElementById('modalUploadError');
+    const submitAddCourseBtn = document.getElementById('submitAddCourseBtn');
+
+    // Section 11: Spreadsheet Editor Elements
+    const spreadsheetModal = document.getElementById('spreadsheetModal');
+    const sheetCourseName = document.getElementById('sheetCourseName');
+    const sheetFileName = document.getElementById('sheetFileName');
+    const sheetStudentCount = document.getElementById('sheetStudentCount');
+    const sheetSessionCount = document.getElementById('sheetSessionCount');
+    const sheetLastSavedTime = document.getElementById('sheetLastSavedTime');
+    const sheetStatusPill = document.getElementById('sheetStatusPill');
+    const sheetStatusDot = document.getElementById('sheetStatusDot');
+    const sheetStatusText = document.getElementById('sheetStatusText');
+    const sheetFilterInput = document.getElementById('sheetFilterInput');
+    const saveSpreadsheetBtn = document.getElementById('saveSpreadsheetBtn');
+    const downloadSpreadsheetBtn = document.getElementById('downloadSpreadsheetBtn');
+    const closeSpreadsheetBtn = document.getElementById('closeSpreadsheetBtn');
+    const sheetTableHead = document.getElementById('sheetTableHead');
+    const sheetTableBody = document.getElementById('sheetTableBody');
+    const sheetStatsSummary = document.getElementById('sheetStatsSummary');
+
     let lastRenderedValue = '';
     let currentExpiry = 0;
     let sessionActive = false;
+    let currentActiveClass = null;
 
     let tokenRequestInProgress = false;
     let attendanceRequestInProgress = false;
     let changingSession = false;
     let currentRawDataList = [];
 
+    // Spreadsheet state
+    let activeSheetFileId = null;
+    let currentSheetData = null;
+    let originalCellValues = {};
+    let editedCellValues = {};
+    let hasUnsavedChanges = false;
+    let selectedCourseFile = null;
+
     function showToast(text) {
         toastMsg.textContent = text;
         toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2200);
+        setTimeout(() => toast.classList.remove('show'), 2400);
     }
 
     function showQrStatus(message, type = '') {
@@ -1378,14 +2161,12 @@
     function updateSessionBadge(active) {
         sessionActive = active;
 
-        sessionBadge.textContent = active ? 'SESSION ACTIVE' : 'SESSION STOPPED';
+        sessionBadge.textContent = active ? 'SESSION ACTIVE' : 'READY';
         statusDot.className = 'dot ' + (active ? 'active' : 'stopped');
 
         stopButton.disabled = !active || changingSession;
-        newSessionButton.disabled = active || changingSession;
-
-        // The manual download remains available after stopping.
-        downloadButton.disabled = changingSession;
+        newSessionButton.disabled = active || changingSession || !currentActiveClass;
+        downloadButton.disabled = changingSession || !currentActiveClass;
     }
 
     function renderPlaceholder(message) {
@@ -1410,15 +2191,13 @@
         qrElement.appendChild(placeholder);
 
         if (modalQr) {
-            modalQr.innerHTML = '<div style="color:var(--text-muted); padding:30px;">Session stopped</div>';
+            modalQr.innerHTML = '<div style="color:var(--text-muted); padding:30px;">Session inactive</div>';
         }
     }
 
     function renderQr(url) {
         if (typeof QRCode === 'undefined') {
-            throw new Error(
-                'QR library did not load. Check your internet connection.'
-            );
+            throw new Error('QR library did not load.');
         }
 
         qrElement.replaceChildren();
@@ -1432,7 +2211,6 @@
             correctLevel: QRCode.CorrectLevel.M
         });
 
-        // Also render on the projector modal if present
         if (modalQr) {
             modalQr.replaceChildren();
             new QRCode(modalQr, {
@@ -1464,13 +2242,23 @@
                 throw new Error(data.error || `HTTP ${response.status}`);
             }
 
+            if (data.activeClass) {
+                currentActiveClass = data.activeClass;
+                topClassName.textContent = data.activeClass.name;
+                topClassFile.textContent = data.activeClass.filename;
+            } else {
+                currentActiveClass = null;
+                topClassName.textContent = 'None';
+                topClassFile.textContent = 'Select a course below to start';
+            }
+
             if (data.active === false) {
                 updateSessionBadge(false);
 
                 currentExpiry = 0;
                 lastRenderedValue = '';
 
-                tokenElement.textContent = 'SESSION STOPPED';
+                tokenElement.textContent = currentActiveClass ? 'READY TO START SESSION' : 'NO COURSE SELECTED';
                 countdownElement.textContent = 'Stopped';
                 if (topTimerDisplay) topTimerDisplay.textContent = 'Stopped';
                 if (tokenProgressBar) tokenProgressBar.style.width = '0%';
@@ -1478,27 +2266,21 @@
                 studentLink.hidden = true;
                 studentLink.removeAttribute('href');
 
-                renderPlaceholder(
-                    'Attendance has stopped. Start a new session to display another QR code.'
-                );
-
-                showQrStatus(
-                    'Session stopped. Student submissions are closed.',
-                    'warning'
-                );
+                if (!currentActiveClass) {
+                    renderPlaceholder('Please select a course in the Courses table above, then click Start Attendance Session.');
+                } else {
+                    renderPlaceholder(`Active Course: ${currentActiveClass.name}. Click 'Start Attendance Session' to begin.`);
+                }
 
                 return;
             }
 
             if (!data.token || !data.joinUrl || !data.expiresAt) {
-                throw new Error(
-                    'Token API is missing token, joinUrl, or expiresAt.'
-                );
+                throw new Error('Token API is missing required fields.');
             }
 
             const newRenderKey = `${data.token}|${data.joinUrl}`;
 
-            // Redraw the QR whenever the token OR student URL changes.
             if (newRenderKey !== lastRenderedValue) {
                 renderQr(data.joinUrl);
 
@@ -1509,22 +2291,13 @@
                 studentLink.textContent = data.joinUrl;
                 studentLink.hidden = false;
 
-                showQrStatus(
-                    'QR code is active and rotating dynamically.',
-                    'success'
-                );
+                showQrStatus('QR code is active and rotating dynamically.', 'success');
             }
 
             currentExpiry = Number(data.expiresAt);
-
             updateSessionBadge(true);
         } catch (error) {
             console.error('[DASHBOARD TOKEN]', error);
-
-            if (typeof QRCode === 'undefined') {
-                renderPlaceholder('QR library failed to load.');
-            }
-
             showQrStatus('Token error: ' + error.message, 'error');
         } finally {
             tokenRequestInProgress = false;
@@ -1561,23 +2334,18 @@
         if (modalCountdown) modalCountdown.textContent = timeStr;
 
         if (tokenProgressBar) {
-    const lifespan = 12_000; // 12 seconds in milliseconds
+            const lifespan = 15000; // 15 seconds in milliseconds
+            const pct = Math.max(0, Math.min(100, (remaining / lifespan) * 100));
+            tokenProgressBar.style.width = `${pct}%`;
 
-    const pct = Math.max(
-            0,
-            Math.min(100, (remaining / lifespan) * 100)
-        );
-
-        tokenProgressBar.style.width = `${pct}%`;
-
-        if (pct < 25) {
-            tokenProgressBar.style.background = 'var(--danger)';
-        } else if (pct < 50) {
-            tokenProgressBar.style.background = 'var(--warning)';
-        } else {
-            tokenProgressBar.style.background = 'var(--primary-gradient)';
+            if (pct < 25) {
+                tokenProgressBar.style.background = 'var(--danger)';
+            } else if (pct < 50) {
+                tokenProgressBar.style.background = 'var(--warning)';
+            } else {
+                tokenProgressBar.style.background = 'var(--primary-gradient)';
+            }
         }
-    }
     }
 
     function renderAttendanceTable(students) {
@@ -1591,7 +2359,6 @@
         if (filtered.length === 0) {
             const row = document.createElement('tr');
             const cell = document.createElement('td');
-
             cell.colSpan = 3;
             cell.className = 'empty';
 
@@ -1601,10 +2368,9 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                             <circle cx="12" cy="12" r="10"></circle>
                             <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
                         </svg>
                     </div>
-                    No students marked present yet.
+                    No students marked present yet for this session.
                 `;
             } else {
                 cell.innerHTML = `No results matching "${query}"`;
@@ -1616,7 +2382,6 @@
             for (const student of filtered) {
                 const row = document.createElement('tr');
 
-                // Roll Number with Badge
                 const rollCell = document.createElement('td');
                 const rollBadge = document.createElement('span');
                 rollBadge.className = 'roll-badge';
@@ -1629,7 +2394,6 @@
                 `;
                 rollCell.appendChild(rollBadge);
 
-                // Time Cell
                 const timeCell = document.createElement('td');
                 timeCell.innerHTML = `
                     <span class="time-cell">
@@ -1641,7 +2405,6 @@
                     </span>
                 `;
 
-                // IP Cell
                 const ipCell = document.createElement('td');
                 const ipBadge = document.createElement('span');
                 ipBadge.className = 'ip-badge';
@@ -1671,24 +2434,24 @@
                 throw new Error(data.error || `HTTP ${response.status}`);
             }
 
-            const students = Array.isArray(data.attendance)
-                ? data.attendance
-                : [];
-
+            const students = Array.isArray(data.attendance) ? data.attendance : [];
             currentRawDataList = students;
 
-            const countVal = String(data.count ?? students.length);
-            attendanceCount.textContent = countVal;
-            if (topAttendanceCount) topAttendanceCount.textContent = countVal;
+            const presentCount = data.count ?? students.length;
+            const absentCount = data.absentCount ?? (215 - presentCount);
+            const totalCount = data.totalCount ?? 215;
+
+            attendanceCount.textContent = String(presentCount);
+            topAttendanceCount.textContent = String(presentCount);
+            topAbsentCount.textContent = String(absentCount);
+            topEnrolledSub.textContent = `/ ${totalCount}`;
 
             renderAttendanceTable(students);
 
-            attendanceStatus.textContent =
-                `Last synchronized: ${new Date().toLocaleTimeString()}`;
+            attendanceStatus.textContent = `Last synchronized: ${new Date().toLocaleTimeString()}`;
         } catch (error) {
             console.error('[DASHBOARD ATTENDANCE]', error);
-            attendanceStatus.textContent =
-                'Could not refresh attendance: ' + error.message;
+            attendanceStatus.textContent = 'Could not refresh attendance: ' + error.message;
         } finally {
             attendanceRequestInProgress = false;
         }
@@ -1699,21 +2462,614 @@
         return String(value);
     }
 
+    // --------------------------------------------------
+    // COURSES TABLE & OPERATIONS
+    // --------------------------------------------------
+
+    async function loadClasses() {
+        try {
+            const res = await fetch('/api/classes', { cache: 'no-store' });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to load courses.');
+
+            renderClassesTable(data.classes || []);
+
+            const active = (data.classes || []).find(c => c.isActive);
+            if (active) {
+                currentActiveClass = active;
+                topClassName.textContent = active.name;
+                topClassFile.textContent = active.filename;
+            } else {
+                currentActiveClass = null;
+                topClassName.textContent = 'None';
+                topClassFile.textContent = 'Select a course below to start';
+            }
+
+            updateSessionBadge(sessionActive);
+        } catch (err) {
+            console.error('[LOAD COURSES]', err);
+        }
+    }
+
+    function renderClassesTable(classes) {
+        classesTableBody.replaceChildren();
+
+        if (classes.length === 0) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td colspan="4" style="text-align:center; color:var(--text-muted); padding:32px;">
+                    No courses added yet. Click <strong>"+ Add Course"</strong> above to upload your first course Excel sheet.
+                </td>
+            `;
+            classesTableBody.appendChild(tr);
+            return;
+        }
+
+        for (const cls of classes) {
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>
+                    <button class="course-name-link open-sheet-link" data-id="${cls.fileId}" title="Click to view & edit ${cls.name} spreadsheet">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        ${cls.name}
+                    </button>
+                </td>
+                <td>
+                    <button class="file-link-btn open-sheet-link" data-id="${cls.fileId}" title="Click to view & edit ${cls.filename}">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="8" y1="13" x2="16" y2="13"></line>
+                            <line x1="8" y1="17" x2="16" y2="17"></line>
+                        </svg>
+                        ${cls.filename}
+                    </button>
+                </td>
+                <td>
+                    ${cls.isActive
+                        ? '<span class="class-badge-active"><span class="dot active" style="width:7px; height:7px;"></span> Active</span>'
+                        : `<button class="secondary action-btn-sm select-class-btn" data-id="${cls.fileId}">Select Class</button>`}
+                </td>
+                <td style="text-align:right;">
+                    <div style="display:inline-flex; align-items:center; justify-content:flex-end; gap:8px;">
+                        <button class="secondary action-btn-sm download-class-btn" data-id="${cls.fileId}" title="Download updated Excel for ${cls.name}">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download
+                        </button>
+                        <button class="secondary action-btn-sm delete-class-btn" data-id="${cls.fileId}" data-name="${cls.name}" title="Delete course ${cls.name}" style="color:var(--danger); border-color:var(--danger-border); padding: 7px 10px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </td>
+            `;
+
+            classesTableBody.appendChild(tr);
+        }
+
+        // Attach event handlers
+        document.querySelectorAll('.open-sheet-link').forEach(btn => {
+            btn.addEventListener('click', () => openSpreadsheet(btn.getAttribute('data-id')));
+        });
+
+        document.querySelectorAll('.select-class-btn').forEach(btn => {
+            btn.addEventListener('click', () => selectClass(btn.getAttribute('data-id')));
+        });
+
+        document.querySelectorAll('.download-class-btn').forEach(btn => {
+            btn.addEventListener('click', () => downloadClassExcel(btn.getAttribute('data-id')));
+        });
+
+        document.querySelectorAll('.delete-class-btn').forEach(btn => {
+            btn.addEventListener('click', () => deleteClass(btn.getAttribute('data-id'), btn.getAttribute('data-name')));
+        });
+    }
+
+    async function deleteClass(fileId, courseName) {
+        if (!confirm(`Are you sure you want to delete course "${courseName}" and its attendance records?`)) {
+            return;
+        }
+        try {
+            const res = await fetch(`/api/classes/${fileId}`, { method: 'DELETE' });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to delete course.');
+            showToast(`Course "${courseName}" deleted.`);
+            await loadClasses();
+            await refreshToken();
+            await refreshAttendance();
+        } catch (err) {
+            console.error('[DELETE CLASS]', err);
+            showToast(err.message, true);
+            alert(err.message);
+        }
+    }
+
+    async function selectClass(fileId) {
+        try {
+            showQrStatus('Selecting course...');
+            const res = await fetch('/api/classes/select', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fileId })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to select course.');
+
+            showToast(`Selected course: ${data.class?.name || 'Updated'}`);
+            showQrStatus(`Active course changed to '${data.class?.name}'. Click 'Start Attendance Session' to begin.`, 'success');
+            await loadClasses();
+            await refreshToken();
+            await refreshAttendance();
+        } catch (err) {
+            console.error('[SELECT CLASS]', err);
+            showQrStatus('Course selection error: ' + err.message, 'error');
+            alert(err.message);
+        }
+    }
+
+    function downloadClassExcel(fileId) {
+        const link = document.createElement('a');
+        link.href = `/api/classes/${fileId}/download`;
+        link.click();
+        showToast('Downloading latest Excel file...');
+    }
+
+    // --------------------------------------------------
+    // ADD COURSE MODAL LOGIC
+    // --------------------------------------------------
+
+    openAddCourseModalBtn.addEventListener('click', () => {
+        newCourseName.value = '';
+        courseFileInput.value = '';
+        selectedCourseFile = null;
+        modalFileLabel.textContent = 'Click to choose Excel sheet (.xlsx)';
+        modalUploadError.style.display = 'none';
+        addCourseModal.classList.add('open');
+        setTimeout(() => newCourseName.focus(), 150);
+    });
+
+    function closeAddCourseModal() {
+        addCourseModal.classList.remove('open');
+        selectedCourseFile = null;
+    }
+
+    closeAddCourseModalBtn.addEventListener('click', closeAddCourseModal);
+    cancelAddCourseBtn.addEventListener('click', closeAddCourseModal);
+
+    modalFileDropZone.addEventListener('click', () => courseFileInput.click());
+
+    courseFileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+            selectedCourseFile = e.target.files[0];
+            modalFileLabel.textContent = `Selected: ${selectedCourseFile.name}`;
+            modalUploadError.style.display = 'none';
+        }
+    });
+
+    modalFileDropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        modalFileDropZone.classList.add('dragover');
+    });
+
+    modalFileDropZone.addEventListener('dragleave', () => {
+        modalFileDropZone.classList.remove('dragover');
+    });
+
+    modalFileDropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        modalFileDropZone.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            selectedCourseFile = e.dataTransfer.files[0];
+            modalFileLabel.textContent = `Selected: ${selectedCourseFile.name}`;
+            modalUploadError.style.display = 'none';
+        }
+    });
+
+    addCourseForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const courseName = newCourseName.value.trim();
+        if (!courseName) {
+            modalUploadError.textContent = 'Please enter a course name.';
+            modalUploadError.style.display = 'flex';
+            return;
+        }
+
+        if (!selectedCourseFile) {
+            modalUploadError.textContent = 'Please choose an Excel file (.xlsx) with roll numbers 25BCS001 - 25BCS215.';
+            modalUploadError.style.display = 'flex';
+            return;
+        }
+
+        submitAddCourseBtn.disabled = true;
+        submitAddCourseBtn.textContent = 'Validating & Uploading...';
+        modalUploadError.style.display = 'none';
+
+        const reader = new FileReader();
+        reader.onload = async () => {
+            try {
+                const base64 = reader.result.split(',')[1];
+                const res = await fetch('/api/classes/upload', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        courseName,
+                        filename: selectedCourseFile.name,
+                        base64
+                    })
+                });
+
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.error || 'Failed to create course.');
+                }
+
+                closeAddCourseModal();
+                showToast(`Course '${courseName}' created successfully!`);
+                await loadClasses();
+                await refreshToken();
+                await refreshAttendance();
+                showQrStatus(`Course '${courseName}' created & activated. Click 'Start Attendance Session' to begin.`, 'success');
+            } catch (err) {
+                console.error('[ADD COURSE ERROR]', err);
+                modalUploadError.textContent = err.message;
+                modalUploadError.style.display = 'flex';
+            } finally {
+                submitAddCourseBtn.disabled = false;
+                submitAddCourseBtn.textContent = 'Create Course';
+            }
+        };
+
+        reader.readAsDataURL(selectedCourseFile);
+    });
+
+    downloadTemplateBtn.addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.href = '/api/template';
+        link.click();
+        showToast('Downloading CSE attendance template...');
+    });
+
+    // --------------------------------------------------
+    // SECTION 11: INTERACTIVE SPREADSHEET VIEWER & EDITOR
+    // --------------------------------------------------
+
+    async function openSpreadsheet(fileId) {
+        activeSheetFileId = fileId;
+        hasUnsavedChanges = false;
+        originalCellValues = {};
+        editedCellValues = {};
+
+        sheetTableHead.replaceChildren();
+        sheetTableBody.innerHTML = `
+            <tr><td colspan="10" style="text-align:center; padding:40px; color:var(--text-muted);">
+                Loading interactive spreadsheet data...
+            </td></tr>
+        `;
+
+        setSheetSaveStatus(false, 'Loading spreadsheet...');
+        spreadsheetModal.classList.add('open');
+
+        try {
+            const res = await fetch(`/api/classes/${fileId}/sheet`, { cache: 'no-store' });
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                throw new Error(data.error || 'Failed to load spreadsheet.');
+            }
+
+            currentSheetData = data;
+            sheetCourseName.textContent = data.class?.name || 'Course';
+            sheetFileName.textContent = data.class?.filename || 'sheet.xlsx';
+            sheetStudentCount.textContent = `${data.rows?.length || 215} Students`;
+
+            const sessionCols = (data.columns || []).filter(c => !c.isRollNo);
+            sheetSessionCount.textContent = `${sessionCols.length} Session${sessionCols.length === 1 ? '' : 's'}`;
+            sheetStatsSummary.textContent = `${data.rows?.length || 215} Enrolled Students (25BCS001 - 25BCS215) &bull; ${sessionCols.length} Attendance Sessions`;
+
+            // Initialize original state map
+            for (const row of data.rows) {
+                for (const col of sessionCols) {
+                    const key = `${row.rollNo}|${col.colNumber}`;
+                    const val = Number(row.cells[col.key]) === 1 ? 1 : 0;
+                    originalCellValues[key] = val;
+                }
+            }
+
+            renderSpreadsheetGrid(data);
+            setSheetSaveStatus(false, 'All Changes Saved');
+            sheetLastSavedTime.textContent = `Last saved: ${data.class?.updatedAt ? new Date(data.class.updatedAt).toLocaleTimeString() : 'Recently'}`;
+        } catch (err) {
+            console.error('[OPEN SHEET ERROR]', err);
+            alert('Could not open spreadsheet: ' + err.message);
+            closeSpreadsheet();
+        }
+    }
+
+    function renderSpreadsheetGrid(data) {
+        sheetTableHead.replaceChildren();
+        sheetTableBody.replaceChildren();
+
+        const columns = data.columns || [];
+        const rows = data.rows || [];
+        const sessionCols = columns.filter(c => !c.isRollNo);
+
+        // 1. Build Header Row
+        const trHead = document.createElement('tr');
+
+        // First cell: Roll No. (Sticky Left)
+        const thRoll = document.createElement('th');
+        thRoll.textContent = 'Roll No.';
+        trHead.appendChild(thRoll);
+
+        // Subsequent Session Date Columns
+        for (const col of sessionCols) {
+            const th = document.createElement('th');
+            const spanDate = document.createElement('span');
+            spanDate.className = 'col-date';
+            spanDate.textContent = col.label;
+
+            const spanStat = document.createElement('span');
+            spanStat.className = 'col-stat';
+            spanStat.id = `colStat_${col.colNumber}`;
+            spanStat.textContent = `${col.presentCount || 0} Present`;
+
+            th.append(spanDate, spanStat);
+            trHead.appendChild(th);
+        }
+
+        sheetTableHead.appendChild(trHead);
+
+        // 2. Build Student Data Rows
+        const filterVal = (sheetFilterInput?.value || '').trim().toUpperCase();
+        const filteredRows = filterVal
+            ? rows.filter(r => r.rollNo.toUpperCase().includes(filterVal))
+            : rows;
+
+        for (const row of filteredRows) {
+            const tr = document.createElement('tr');
+            tr.id = `sheetRow_${row.rollNo}`;
+
+            // Sticky Roll No. Cell
+            const tdRoll = document.createElement('td');
+            tdRoll.textContent = row.rollNo;
+            tr.appendChild(tdRoll);
+
+            // Session Attendance Cells
+            for (const col of sessionCols) {
+                const td = document.createElement('td');
+                const key = `${row.rollNo}|${col.colNumber}`;
+
+                const curVal = editedCellValues[key] !== undefined
+                    ? editedCellValues[key]
+                    : originalCellValues[key];
+
+                const isEdited = (editedCellValues[key] !== undefined && editedCellValues[key] !== originalCellValues[key]);
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `cell-toggle-btn val-${curVal}` + (isEdited ? ' edited' : '');
+                btn.textContent = String(curVal);
+                btn.title = `Click to toggle: currently ${curVal === 1 ? '1 (Present)' : '0 (Absent)'}`;
+                btn.setAttribute('data-roll', row.rollNo);
+                btn.setAttribute('data-col', col.colNumber);
+                btn.setAttribute('data-key', col.key);
+
+                btn.addEventListener('click', () => {
+                    toggleSheetCell(row.rollNo, col.colNumber, col.key, btn);
+                });
+
+                td.appendChild(btn);
+                tr.appendChild(td);
+            }
+
+            sheetTableBody.appendChild(tr);
+        }
+    }
+
+    function toggleSheetCell(rollNo, colNumber, colKey, btn) {
+        const key = `${rollNo}|${colNumber}`;
+        const origVal = originalCellValues[key] ?? 0;
+        const curVal = editedCellValues[key] !== undefined ? editedCellValues[key] : origVal;
+        const nextVal = curVal === 1 ? 0 : 1;
+
+        editedCellValues[key] = nextVal;
+
+        // Update button visual state
+        btn.className = `cell-toggle-btn val-${nextVal}`;
+        btn.textContent = String(nextVal);
+        btn.title = `Click to toggle: currently ${nextVal === 1 ? '1 (Present)' : '0 (Absent)'}`;
+
+        const isChangedFromOrig = (nextVal !== origVal);
+        if (isChangedFromOrig) {
+            btn.classList.add('edited');
+        } else {
+            delete editedCellValues[key];
+        }
+
+        // Check if any edits remain across the entire sheet
+        hasUnsavedChanges = Object.keys(editedCellValues).length > 0;
+        setSheetSaveStatus(hasUnsavedChanges, hasUnsavedChanges ? 'Unsaved Changes' : 'All Changes Saved');
+
+        // Recalculate present count for this column dynamically
+        recalculateColumnStats(colNumber);
+    }
+
+    function recalculateColumnStats(colNumber) {
+        if (!currentSheetData) return;
+        const rows = currentSheetData.rows || [];
+        let present = 0;
+
+        for (const r of rows) {
+            const key = `${r.rollNo}|${colNumber}`;
+            const val = editedCellValues[key] !== undefined ? editedCellValues[key] : (originalCellValues[key] ?? 0);
+            if (val === 1) present++;
+        }
+
+        const statElem = document.getElementById(`colStat_${colNumber}`);
+        if (statElem) {
+            statElem.textContent = `${present} Present`;
+        }
+    }
+
+    function setSheetSaveStatus(unsaved, text) {
+        if (unsaved) {
+            sheetStatusPill.className = 'sheet-status-pill unsaved';
+            sheetStatusDot.className = 'dot';
+            sheetStatusDot.style.background = 'var(--warning)';
+            sheetStatusText.textContent = text || 'Unsaved Changes';
+            saveSpreadsheetBtn.disabled = false;
+        } else {
+            sheetStatusPill.className = 'sheet-status-pill';
+            sheetStatusDot.className = 'dot active';
+            sheetStatusDot.style.background = 'var(--success)';
+            sheetStatusText.textContent = text || 'All Changes Saved';
+            saveSpreadsheetBtn.disabled = true;
+        }
+    }
+
+    async function saveSpreadsheet() {
+        if (!hasUnsavedChanges || !activeSheetFileId) return;
+
+        saveSpreadsheetBtn.disabled = true;
+        saveSpreadsheetBtn.innerHTML = `
+            <svg style="animation:spin 1s linear infinite;" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
+            </svg>
+            Saving...
+        `;
+
+        try {
+            const updates = [];
+            for (const [key, val] of Object.entries(editedCellValues)) {
+                const [rollNo, colNumberStr] = key.split('|');
+                updates.push({
+                    rollNo,
+                    colNumber: Number(colNumberStr),
+                    value: val
+                });
+            }
+
+            const res = await fetch(`/api/classes/${activeSheetFileId}/sheet`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ updates })
+            });
+
+            const data = await res.json();
+            if (!res.ok || !data.success) {
+                throw new Error(data.error || 'Failed to save spreadsheet changes.');
+            }
+
+            for (const [key, val] of Object.entries(editedCellValues)) {
+                originalCellValues[key] = val;
+            }
+            editedCellValues = {};
+            hasUnsavedChanges = false;
+
+            document.querySelectorAll('.cell-toggle-btn.edited').forEach(b => b.classList.remove('edited'));
+
+            setSheetSaveStatus(false, 'All Changes Saved');
+            sheetLastSavedTime.textContent = `Last saved: ${new Date().toLocaleTimeString()}`;
+            showToast('Spreadsheet saved to course Excel file!');
+
+            await loadClasses();
+            await refreshAttendance();
+        } catch (err) {
+            console.error('[SAVE SHEET ERROR]', err);
+            alert('Failed to save changes: ' + err.message);
+            setSheetSaveStatus(true, 'Error Saving Changes');
+        } finally {
+            saveSpreadsheetBtn.innerHTML = `
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                    <polyline points="7 3 7 8 15 8"></polyline>
+                </svg>
+                Save Changes
+            `;
+            saveSpreadsheetBtn.disabled = !hasUnsavedChanges;
+        }
+    }
+
+    function closeSpreadsheet() {
+        if (hasUnsavedChanges) {
+            const discard = window.confirm(
+                'You have unsaved attendance changes in the spreadsheet.\n\n' +
+                'Are you sure you want to discard your changes and close?'
+            );
+            if (!discard) return;
+        }
+
+        spreadsheetModal.classList.remove('open');
+        hasUnsavedChanges = false;
+        editedCellValues = {};
+        activeSheetFileId = null;
+    }
+
+    saveSpreadsheetBtn.addEventListener('click', saveSpreadsheet);
+    closeSpreadsheetBtn.addEventListener('click', closeSpreadsheet);
+
+    downloadSpreadsheetBtn.addEventListener('click', () => {
+        if (activeSheetFileId) {
+            downloadClassExcel(activeSheetFileId);
+        }
+    });
+
+    sheetFilterInput.addEventListener('input', () => {
+        if (currentSheetData) {
+            renderSpreadsheetGrid(currentSheetData);
+        }
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (spreadsheetModal.classList.contains('open')) {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+                e.preventDefault();
+                saveSpreadsheet();
+            } else if (e.key === 'Escape') {
+                closeSpreadsheet();
+            }
+        }
+    });
+
+    window.addEventListener('beforeunload', (e) => {
+        if (hasUnsavedChanges) {
+            e.preventDefault();
+            e.returnValue = 'You have unsaved attendance changes.';
+            return e.returnValue;
+        }
+    });
+
+    // --------------------------------------------------
+    // ATTENDANCE SESSION CONTROLS
+    // --------------------------------------------------
+
     async function downloadExcel() {
+        if (!currentActiveClass) {
+            alert('Please select a course first.');
+            return;
+        }
+
         downloadButton.disabled = true;
 
         try {
-            const response = await fetch('/api/download', {
-                cache: 'no-store'
-            });
+            const response = await fetch('/api/download', { cache: 'no-store' });
 
             if (!response.ok) {
-                let detail = 'Could not generate Excel report.';
-
-                try {
-                    detail = await response.text();
-                } catch (_) {}
-
+                let detail = 'Could not download Excel report.';
+                try { detail = await response.text(); } catch (_) {}
                 throw new Error(detail);
             }
 
@@ -1722,7 +3078,7 @@
 
             const link = document.createElement('a');
             link.href = objectUrl;
-            link.download = 'Attendance_Report.xlsx';
+            link.download = currentActiveClass.filename || 'Attendance_Report.xlsx';
 
             document.body.appendChild(link);
             link.click();
@@ -1730,10 +3086,7 @@
 
             setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
 
-            showQrStatus(
-                'Excel report downloaded successfully.',
-                'success'
-            );
+            showQrStatus('Excel report downloaded successfully.', 'success');
             showToast('Excel report downloaded');
         } catch (error) {
             console.error('[EXCEL DOWNLOAD]', error);
@@ -1747,9 +3100,9 @@
         if (!sessionActive || changingSession) return;
 
         const confirmed = window.confirm(
-            'Stop attendance now?\n\n' +
+            'End attendance session now?\n\n' +
             '• Students will no longer be able to submit attendance.\n' +
-            '• The current session Excel report will download automatically.'
+            '• Active records will be saved to your course Excel file on the server.'
         );
 
         if (!confirmed) return;
@@ -1759,7 +3112,7 @@
         newSessionButton.disabled = true;
         downloadButton.disabled = true;
 
-        showQrStatus('Stopping the attendance session...');
+        showQrStatus('Ending the attendance session and updating Excel...');
 
         try {
             const response = await fetch('/api/stop-session', {
@@ -1771,16 +3124,16 @@
             const data = await response.json();
 
             if (!response.ok || !data.success) {
-                throw new Error(data.error || 'Could not stop the session.');
+                throw new Error(data.error || 'Could not end the session.');
             }
 
             sessionActive = false;
             currentExpiry = 0;
             lastRenderedValue = '';
 
-            renderPlaceholder('Attendance session stopped.');
+            renderPlaceholder('Attendance session ended. Records saved to course Excel file.');
 
-            tokenElement.textContent = 'SESSION STOPPED';
+            tokenElement.textContent = 'SESSION ENDED';
             countdownElement.textContent = 'Stopped';
 
             studentLink.hidden = true;
@@ -1788,30 +3141,14 @@
 
             updateSessionBadge(false);
 
-            showQrStatus(
-                'Attendance stopped. Preparing final Excel report...',
-                'success'
-            );
+            showQrStatus(`Attendance session ended. All records saved to '${currentActiveClass?.filename || 'course sheet'}'.`, 'success');
+            showToast('Attendance records saved');
 
-            // Load the final attendance list before downloading.
             await refreshAttendance();
-
-            changingSession = false;
-            updateSessionBadge(false);
-
-            await downloadExcel();
-
-            showQrStatus(
-                'Attendance stopped. Final Excel report downloaded.',
-                'success'
-            );
+            await loadClasses();
         } catch (error) {
             console.error('[STOP SESSION]', error);
-
-            changingSession = false;
-            updateSessionBadge(sessionActive);
-
-            showQrStatus('Could not stop session: ' + error.message, 'error');
+            showQrStatus('Could not end session: ' + error.message, 'error');
         } finally {
             changingSession = false;
             updateSessionBadge(sessionActive);
@@ -1821,9 +3158,14 @@
     async function startNewSession() {
         if (sessionActive || changingSession) return;
 
+        if (!currentActiveClass) {
+            alert('Please select a course before starting attendance.');
+            return;
+        }
+
         const confirmed = window.confirm(
-            'Start a new attendance session?\n\n' +
-            'The historical database records will be preserved, and a new QR token will be generated.'
+            `Start attendance session for '${currentActiveClass.name}'?\n\n` +
+            'A new session column will be added to the Excel file with today\'s date. All students will be initialized to 0, and scanning will update them to 1.'
         );
 
         if (!confirmed) return;
@@ -1833,7 +3175,7 @@
         stopButton.disabled = true;
         downloadButton.disabled = true;
 
-        showQrStatus('Starting a new session...');
+        showQrStatus('Initializing session column in Excel file...');
 
         try {
             const response = await fetch('/api/reset', {
@@ -1851,17 +3193,16 @@
             lastRenderedValue = '';
             currentExpiry = 0;
 
+            await loadClasses();
             await refreshToken();
             await refreshAttendance();
 
-            showQrStatus(
-                'New attendance session started. Scan the new QR code.',
-                'success'
-            );
-            showToast('New session activated');
+            showQrStatus(`Attendance session active for '${currentActiveClass.name}' [Column: ${data.sessionColumn}]. Scan QR code.`, 'success');
+            showToast('Attendance Session Active');
         } catch (error) {
             console.error('[NEW SESSION]', error);
             showQrStatus('Could not start session: ' + error.message, 'error');
+            alert(error.message);
         } finally {
             changingSession = false;
             updateSessionBadge(sessionActive);
@@ -1870,10 +3211,10 @@
         }
     }
 
-    // --- Interactive Enhancements ---
+    // Clipboard and modal actions
     copyTokenBtn?.addEventListener('click', () => {
         const text = tokenElement.textContent;
-        if (text && text !== 'Waiting for token...' && text !== 'SESSION STOPPED') {
+        if (text && text !== 'Waiting to start session...' && text !== 'SESSION ENDED') {
             navigator.clipboard.writeText(text).then(() => showToast('Token copied to clipboard!'));
         }
     });
@@ -1906,6 +3247,7 @@
     newSessionButton.addEventListener('click', startNewSession);
 
     // Initial load and periodic polling
+    loadClasses();
     refreshToken();
     refreshAttendance();
 

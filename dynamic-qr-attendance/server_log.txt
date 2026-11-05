@@ -1,0 +1,36 @@
+[SYS] Detected local IP: 10.0.4.176
+[DB] Attendance database ready with multi-class and Excel tracking.
+[CLASS] Loaded active class: 25BCS001 to 25BCS215 Attendance (25BCS001_to_25BCS215_Attendance.xlsx)
+
+========================================
+ ATTENDANCE SERVER RUNNING
+========================================
+ Dashboard: http://localhost:3000
+ LAN URL:   http://10.0.4.176:3000
+ Token API: http://localhost:3000/api/token
+ Health:    http://localhost:3000/api/health
+========================================
+[NGROK] Disabled. Local Wi-Fi hosting is active.
+[QR] Student URL base: http://10.0.4.176:3000
+[CLASS UPLOAD] Successfully uploaded and validated: Data_Structures.xlsx (Data Structures)
+[CLASS UPLOAD] Successfully uploaded and validated: Database_Management.xlsx (Database Management)
+[CLASS] Loaded active class: Data Structures (Data_Structures.xlsx)
+[QR] Token refreshed. Expires at 1:22:48 pm
+[SESSION] New attendance session started for 'Data Structures'. Column: '05-11-2026'
+[ATTENDANCE] Present: 25BCS001 | Class: Data Structures | IP: 10.0.4.1
+[ATTENDANCE] Present: 25BCS002 | Class: Data Structures | IP: 10.0.4.2
+[SESSION] QR stopped. Attendance closed.
+[QR] Token refreshed. Expires at 1:22:48 pm
+[SESSION] New attendance session started for 'Data Structures'. Column: '05-11-2026 (Session 2)'
+[ATTENDANCE] Present: 25BCS003 | Class: Data Structures | IP: 10.0.4.5
+[SESSION] QR stopped. Attendance closed.
+[CLASS] Loaded active class: Database Management (Database_Management.xlsx)
+[QR] Token refreshed. Expires at 1:22:48 pm
+[SESSION] New attendance session started for 'Database Management'. Column: '05-11-2026'
+[ATTENDANCE] Present: 25BCS010 | Class: Database Management | IP: 10.0.4.10
+[SESSION] QR stopped. Attendance closed.
+[MANUAL EDIT] Saved 2 cell edits for class Data Structures
+[CLASS] Loaded active class: Data Structures (Data_Structures.xlsx)
+[QR] Token refreshed. Expires at 1:22:48 pm
+[SESSION] New attendance session started for 'Data Structures'. Column: '05-11-2026 (Session 3)'
+[SESSION] QR stopped. Attendance closed.
