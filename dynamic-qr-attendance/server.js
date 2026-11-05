@@ -282,6 +282,7 @@ function validateAndParseExcel(workbook) {
     }
 
     let rollColIndex = -1;
+    let nameColIndex = -1;
     let headerRowIndex = -1;
 
     for (let r = 1; r <= Math.min(15, worksheet.rowCount); r++) {
@@ -292,20 +293,25 @@ function validateAndParseExcel(workbook) {
                 ? rawVal.richText.map(t => t.text).join('')
                 : String(rawVal || '');
             const cleaned = text.trim();
-            if (/^roll\s*(no\.?|number)?$/i.test(cleaned)) {
+            if (/^(reg(istration)?|roll)\s*(no\.?|number)?$/i.test(cleaned) || /^reg\b/i.test(cleaned) || /^roll\b/i.test(cleaned)) {
                 rollColIndex = colNumber;
                 headerRowIndex = r;
+            }
+            if (/^name$/i.test(cleaned) || /^student\s*name$/i.test(cleaned)) {
+                nameColIndex = colNumber;
             }
         });
         if (rollColIndex !== -1) break;
     }
 
     if (rollColIndex === -1) {
-        throw new Error("Invalid format: Excel file must contain a 'Roll No.' column.");
+        throw new Error("Invalid format: Excel file must contain a 'Reg. No.' column.");
     }
 
     const extracted = [];
     const rollRowMap = {};
+    const seenRolls = new Set();
+    const authorizedRolls = [];
 
     for (let r = headerRowIndex + 1; r <= worksheet.rowCount; r++) {
         const cell = worksheet.getRow(r).getCell(rollColIndex);
@@ -315,33 +321,27 @@ function validateAndParseExcel(workbook) {
             : String(rawVal ?? '');
         const roll = text.trim().toUpperCase();
         if (roll) {
+            if (seenRolls.has(roll)) {
+                throw new Error(`Duplicate registration number '${roll}' found at row ${r}. Each student must have a unique Reg. No.`);
+            }
+            seenRolls.add(roll);
             extracted.push({ roll, rowNumber: r });
             rollRowMap[roll] = r;
+            authorizedRolls.push(roll);
         }
     }
 
     if (extracted.length === 0) {
-        throw new Error("Invalid file: No student roll numbers found under 'Roll No.' column.");
-    }
-
-    if (extracted.length !== TOTAL_EXPECTED_STUDENTS) {
-        throw new Error(`Unauthorized student roster: Expected ${TOTAL_EXPECTED_STUDENTS} authorized students (25BCS001 to 25BCS215), but found ${extracted.length} students.`);
-    }
-
-    for (let i = 0; i < EXPECTED_ROLL_NUMBERS.length; i++) {
-        const expected = EXPECTED_ROLL_NUMBERS[i];
-        const actual = extracted[i].roll;
-        if (actual !== expected) {
-            throw new Error(`Invalid student roster: Expected ${expected} at row ${extracted[i].rowNumber} (position ${i + 1}), but found '${actual}'. Authorized roll numbers must be 25BCS001 through 25BCS215 in ascending order.`);
-        }
+        throw new Error("Invalid file: No student registration numbers found under 'Reg. No.' column.");
     }
 
     return {
         worksheet,
         headerRowIndex,
         rollColIndex,
+        nameColIndex,
         rollRowMap,
-        authorizedRolls: EXPECTED_ROLL_NUMBERS
+        authorizedRolls
     };
 }
 
@@ -393,7 +393,7 @@ function prepareSessionColumnInWorksheet(worksheet, headerRowIndex, rollRowMap) 
     }
 
     // Initialize all authorized students to 0
-    for (const roll of EXPECTED_ROLL_NUMBERS) {
+    for (const roll of Object.keys(rollRowMap)) {
         const r = rollRowMap[roll];
         if (r) {
             const cell = worksheet.getRow(r).getCell(newColNumber);
@@ -478,7 +478,7 @@ async function syncSessionToExcel(sessionId, fileId) {
         const worksheet = activeWorkbook.worksheets[0];
         if (!worksheet || !activeSessionColIndex) return;
 
-        for (const roll of EXPECTED_ROLL_NUMBERS) {
+        for (const roll of Object.keys(activeClass.rollRowMap || {})) {
             const r = activeClass.rollRowMap[roll];
             if (r) {
                 const cell = worksheet.getRow(r).getCell(activeSessionColIndex);
@@ -537,7 +537,7 @@ async function restoreActiveClass() {
 }
 
 /**
- * Generates CSE template buffer for teachers to download
+ * Generates blank attendance roster template with Reg. No. and Name columns
  */
 async function generateCseTemplateBuffer() {
     const workbook = new ExcelJS.Workbook();
@@ -549,8 +549,8 @@ async function generateCseTemplateBuffer() {
     });
 
     worksheet.columns = [
-        { header: 'Reg. No.', key: 'regNo', width: 18 },
-        { header: 'Name', key: 'name', width: 30 }
+        { header: 'Reg. No.', key: 'regNo', width: 20 },
+        { header: 'Name', key: 'name', width: 32 }
     ];
 
     const headerRow = worksheet.getRow(1);
@@ -562,12 +562,6 @@ async function generateCseTemplateBuffer() {
     };
     headerRow.alignment = { horizontal: 'center', vertical: 'middle' };
     headerRow.height = 26;
-
-    for (const roll of EXPECTED_ROLL_NUMBERS) {
-        const row = worksheet.addRow({ rollNo: roll });
-        row.alignment = { horizontal: 'center', vertical: 'middle' };
-        row.height = 20;
-    }
 
     return await workbook.xlsx.writeBuffer();
 }
@@ -1053,17 +1047,21 @@ app.get('/api/classes/:fileId/sheet', async (req, res) => {
             return res.status(500).json({ error: 'Excel file contains no worksheets.' });
         }
 
-        // Find header row and Roll No column
+        // Find header row, Reg/Roll No column, and Name column
         let headerRowIndex = 1;
         let rollColIndex = 1;
+        let nameColIndex = -1;
 
         for (let r = 1; r <= Math.min(15, worksheet.rowCount); r++) {
             const row = worksheet.getRow(r);
             row.eachCell((cell, colNumber) => {
                 const text = String(cell.value || '').trim();
-                if (/^roll\s*(no\.?|number)?$/i.test(text)) {
+                if (/^(reg(istration)?|roll)\s*(no\.?|number)?$/i.test(text) || /^reg\b/i.test(text) || /^roll\b/i.test(text)) {
                     headerRowIndex = r;
                     rollColIndex = colNumber;
+                }
+                if (/^name$/i.test(text) || /^student\s*name$/i.test(text)) {
+                    nameColIndex = colNumber;
                 }
             });
             if (rollColIndex !== -1) break;
@@ -1078,13 +1076,15 @@ app.get('/api/classes/:fileId/sheet', async (req, res) => {
             const cellVal = headerRow.getCell(c).value;
             const label = cellVal !== null && cellVal !== undefined ? String(cellVal).trim() : `Col ${c}`;
             const isRollNo = (c === rollColIndex);
+            const isName = (c === nameColIndex) || (/^name$/i.test(label));
 
             columns.push({
                 colNumber: c,
-                key: isRollNo ? 'rollNo' : `col_${c}`,
-                label: label || (isRollNo ? 'Reg No.' : `Session ${c - 1}`),
+                key: isRollNo ? 'rollNo' : (isName ? 'name' : `col_${c}`),
+                label: label || (isRollNo ? 'Reg. No.' : (isName ? 'Name' : `Session ${c - 1}`)),
                 isRollNo,
-                isDate: !isRollNo
+                isName,
+                isDate: !isRollNo && !isName
             });
         }
 
@@ -1092,7 +1092,7 @@ app.get('/api/classes/:fileId/sheet', async (req, res) => {
         const rows = [];
         const colPresentCounts = {};
         for (const col of columns) {
-            if (!col.isRollNo) colPresentCounts[col.key] = 0;
+            if (col.isDate) colPresentCounts[col.key] = 0;
         }
 
         for (let r = headerRowIndex + 1; r <= worksheet.rowCount; r++) {
@@ -1101,10 +1101,23 @@ app.get('/api/classes/:fileId/sheet', async (req, res) => {
             if (!rollVal) continue;
 
             const rollNo = String(rollVal).trim().toUpperCase();
+            let studentName = '';
+            if (nameColIndex !== -1) {
+                const nameVal = rowObj.getCell(nameColIndex).value;
+                studentName = nameVal !== null && nameVal !== undefined ? String(nameVal).trim() : '';
+            }
+
             const cells = {};
 
             for (const col of columns) {
                 if (col.isRollNo) continue;
+                if (col.isName) {
+                    const rawName = rowObj.getCell(col.colNumber).value;
+                    const nm = rawName !== null && rawName !== undefined ? String(rawName).trim() : '';
+                    cells[col.key] = nm;
+                    if (!studentName) studentName = nm;
+                    continue;
+                }
                 const cellVal = rowObj.getCell(col.colNumber).value;
                 const numVal = (Number(cellVal) === 1 || cellVal === '1' || cellVal === true) ? 1 : 0;
                 cells[col.key] = numVal;
@@ -1115,6 +1128,7 @@ app.get('/api/classes/:fileId/sheet', async (req, res) => {
 
             rows.push({
                 rollNo,
+                name: studentName,
                 rowIndex: r,
                 cells
             });
@@ -1122,7 +1136,7 @@ app.get('/api/classes/:fileId/sheet', async (req, res) => {
 
         // Attach present counts to column metadata
         for (const col of columns) {
-            if (!col.isRollNo) {
+            if (col.isDate) {
                 col.presentCount = colPresentCounts[col.key] || 0;
                 col.absentCount = rows.length - (colPresentCounts[col.key] || 0);
             }
@@ -1163,10 +1177,23 @@ app.put('/api/classes/:fileId/sheet', async (req, res) => {
             return res.status(500).json({ error: 'Worksheet not found.' });
         }
 
+        // Find header row and roll column
+        let rollColIndex = 1;
+        for (let r = 1; r <= Math.min(15, worksheet.rowCount); r++) {
+            const row = worksheet.getRow(r);
+            row.eachCell((cell, colNumber) => {
+                const text = String(cell.value || '').trim();
+                if (/^(reg(istration)?|roll)\s*(no\.?|number)?$/i.test(text) || /^reg\b/i.test(text) || /^roll\b/i.test(text)) {
+                    rollColIndex = colNumber;
+                }
+            });
+            if (rollColIndex !== 1) break;
+        }
+
         // Map roll numbers to row indices
         const rollRowMap = {};
         for (let r = 1; r <= worksheet.rowCount; r++) {
-            const cellVal = worksheet.getRow(r).getCell(1).value;
+            const cellVal = worksheet.getRow(r).getCell(rollColIndex).value;
             if (cellVal) {
                 rollRowMap[String(cellVal).trim().toUpperCase()] = r;
             }

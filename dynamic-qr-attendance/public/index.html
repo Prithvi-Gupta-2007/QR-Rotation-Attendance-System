@@ -1844,7 +1844,7 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    <input type="text" id="filterInput" placeholder="Filter roll or IP..." autocomplete="off">
+                    <input type="text" id="filterInput" placeholder="Filter Reg. No. or IP..." autocomplete="off">
                 </div>
             </div>
 
@@ -1853,7 +1853,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Roll Number</th>
+                            <th>Reg. No.</th>
                             <th>Timestamp</th>
                             <th>IP Address</th>
                         </tr>
@@ -1901,7 +1901,7 @@
 
         <h2 style="font-size:20px; font-weight:800; color:var(--text-main); margin-bottom:4px;">Add New Course</h2>
         <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">
-            Enter the course name and upload the initial Excel roster containing roll numbers <code>25BCS001</code> to <code>25BCS215</code>.
+            Enter the course name and upload the initial Excel roster with student Reg. No. and Name.
         </p>
 
         <form id="addCourseForm">
@@ -1920,7 +1920,7 @@
                         <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                     <div id="modalFileLabel" style="font-size:13.5px; font-weight:700; color:var(--text-main);">Click to choose Excel sheet (.xlsx)</div>
-                    <div style="font-size:12px; color:var(--text-muted); margin-top:3px;">Must contain 'Roll No.' column with 25BCS001 to 25BCS215</div>
+                    <div style="font-size:12px; color:var(--text-muted); margin-top:3px;">Must contain 'Reg. No.' and 'Name' columns</div>
                 </div>
             </div>
 
@@ -1974,7 +1974,7 @@
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                     </svg>
-                    <input type="text" id="sheetFilterInput" placeholder="Filter roll number..." autocomplete="off">
+                    <input type="text" id="sheetFilterInput" placeholder="Filter Reg. No. or Name..." autocomplete="off">
                 </div>
 
                 <button id="saveSpreadsheetBtn" class="primary sheet-btn" type="button" disabled title="Save manual edits directly to persistent Excel file (Ctrl+S)">
@@ -2686,7 +2686,7 @@
         }
 
         if (!selectedCourseFile) {
-            modalUploadError.textContent = 'Please choose an Excel file (.xlsx) with roll numbers 25BCS001 - 25BCS215.';
+            modalUploadError.textContent = 'Please choose an Excel file (.xlsx) containing a Reg. No. column.';
             modalUploadError.style.display = 'flex';
             return;
         }
@@ -2771,11 +2771,11 @@
             currentSheetData = data;
             sheetCourseName.textContent = data.class?.name || 'Course';
             sheetFileName.textContent = data.class?.filename || 'sheet.xlsx';
-            sheetStudentCount.textContent = `${data.rows?.length || 215} Students`;
+            sheetStudentCount.textContent = `${data.rows?.length || 0} Students`;
 
-            const sessionCols = (data.columns || []).filter(c => !c.isRollNo);
+            const sessionCols = (data.columns || []).filter(c => !c.isRollNo && !c.isName);
             sheetSessionCount.textContent = `${sessionCols.length} Session${sessionCols.length === 1 ? '' : 's'}`;
-            sheetStatsSummary.textContent = `${data.rows?.length || 215} Enrolled Students (25BCS001 - 25BCS215) &bull; ${sessionCols.length} Attendance Sessions`;
+            sheetStatsSummary.innerHTML = `${data.rows?.length || 0} Enrolled Students &bull; ${sessionCols.length} Attendance Session${sessionCols.length === 1 ? '' : 's'}`;
 
             // Initialize original state map
             for (const row of data.rows) {
@@ -2802,15 +2802,25 @@
 
         const columns = data.columns || [];
         const rows = data.rows || [];
-        const sessionCols = columns.filter(c => !c.isRollNo);
+        const rollCol = columns.find(c => c.isRollNo) || { label: 'Reg. No.' };
+        const nameCol = columns.find(c => c.isName);
+        const sessionCols = columns.filter(c => !c.isRollNo && !c.isName);
 
         // 1. Build Header Row
         const trHead = document.createElement('tr');
 
-        // First cell: Roll No. (Sticky Left)
+        // First cell: Reg. No. (Sticky Left)
         const thRoll = document.createElement('th');
-        thRoll.textContent = 'Roll No.';
+        thRoll.textContent = rollCol.label || 'Reg. No.';
         trHead.appendChild(thRoll);
+
+        // Optional Name Column Header
+        if (nameCol) {
+            const thName = document.createElement('th');
+            thName.textContent = nameCol.label || 'Name';
+            thName.style.minWidth = '140px';
+            trHead.appendChild(thName);
+        }
 
         // Subsequent Session Date Columns
         for (const col of sessionCols) {
@@ -2833,17 +2843,26 @@
         // 2. Build Student Data Rows
         const filterVal = (sheetFilterInput?.value || '').trim().toUpperCase();
         const filteredRows = filterVal
-            ? rows.filter(r => r.rollNo.toUpperCase().includes(filterVal))
+            ? rows.filter(r => (r.rollNo && r.rollNo.toUpperCase().includes(filterVal)) || (r.name && r.name.toUpperCase().includes(filterVal)))
             : rows;
 
         for (const row of filteredRows) {
             const tr = document.createElement('tr');
             tr.id = `sheetRow_${row.rollNo}`;
 
-            // Sticky Roll No. Cell
+            // Sticky Reg. No. Cell
             const tdRoll = document.createElement('td');
             tdRoll.textContent = row.rollNo;
             tr.appendChild(tdRoll);
+
+            // Optional Name Cell
+            if (nameCol) {
+                const tdName = document.createElement('td');
+                tdName.textContent = row.name || '—';
+                tdName.style.whiteSpace = 'nowrap';
+                tdName.style.fontWeight = '500';
+                tr.appendChild(tdName);
+            }
 
             // Session Attendance Cells
             for (const col of sessionCols) {
